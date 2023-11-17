@@ -1,0 +1,35 @@
+.app-header {
+  margin-bottom: 40px;
+  background-color: var(--surface-overlay);
+  // background-color: var(--surface-ground);
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.header-menu {
+  a {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 24px;
+    color: var(--primary-color);
+    padding: 18px 0px;
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+  a + a {
+    margin-left: 20px;
+  }
+}
+
+.header-action {
+  margin-left: 40px;
+  min-width: 180px;
+  a {
+    color: var(--text);
+    text-decoration: none;
+  }
+  .basket {
+    margin-left: 12px;
+  }
+}
