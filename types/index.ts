@@ -4,20 +4,20 @@ export enum AppThemes {
 }
 
 export interface ICategoryTemplate {
-  title: String;
+  title: string;
 }
 
 export interface ICategory extends ICategoryTemplate {
-  _id: String;
+  _id: string;
 }
 
 export interface IProductTemplate {
-  title: String;
-  description: String;
-  price: Number;
+  title: string;
+  description: string;
+  price: number;
   categories: ICategory[];
 }
 
 export interface IProduct extends IProductTemplate {
-  _id: String;
+  _id: string;
 }

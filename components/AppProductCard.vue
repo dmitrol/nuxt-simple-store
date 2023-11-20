@@ -12,7 +12,9 @@
         </span>
       </NuxtLink>
       <div class="product-card__price">{{ product.price }} грн.</div>
-      <div class="product-card__button"><Button label="В корзину" /></div>
+      <div class="product-card__button">
+        <Button label="В корзину" />
+      </div>
     </div>
   </div>
 </template>
