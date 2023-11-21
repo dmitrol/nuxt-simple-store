@@ -1,39 +1,58 @@
 <template>
   <div>
-    <template v-if="productStore.product !== null">
-      <div class="top-content">
-        <div class="product-image">
-          <img alt="user header" src="/product.jpg" />
-        </div>
-        <div class="product-data app-full-width">
-          <div class="title">{{ productStore.product.title }}</div>
-          <div class="price">{{ productStore.product.price }} грн.</div>
-          <div class="action">
-            <Button label="В корзину" />
+    <ClientOnly>
+      <template v-if="productStore.product !== null">
+        <div class="top-content">
+          <div class="product-image">
+            <img alt="user header" src="/product.jpg" />
           </div>
-          <div class="categories">
-            <span class="categories-title">Категории: </span>
-            <template v-for="category of productStore.product.categories" :key="category._id">
-              <span> {{ category.title }}, </span>
-            </template>
+          <div class="product-data app-full-width">
+            <div class="title">{{ productStore.product.title }}</div>
+            <div class="price">{{ productStore.product.price }} грн.</div>
+            <div class="action">
+              <InputNumber
+                id="price"
+                v-model="quantity"
+                input-id="minmax-buttons"
+                mode="decimal"
+                :min="1"
+                :max="999"
+                show-buttons
+                :input-style="{ width: '60px' }"
+                @update:model-value="basketStore.saveInStorage"
+              />
+              <Button class="action__button" label="В корзину" @click="buyProduct" />
+            </div>
+            <div class="categories">
+              <span class="categories-title">Категории: </span>
+              <template v-for="category of productStore.product.categories" :key="category._id">
+                <span> {{ category.title }}, </span>
+              </template>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="description">
-        <div class="description__header">Описание</div>
-        <p class="description__text">
-          {{ productStore.product.description }}
-        </p>
-      </div>
-    </template>
+        <div class="description">
+          <div class="description__header">Описание</div>
+          <p class="description__text">
+            {{ productStore.product.description }}
+          </p>
+        </div>
+      </template>
+    </ClientOnly>
   </div>
 </template>
 
 <script setup lang="ts">
+import { IProduct } from '~/types';
+
 const route = useRoute();
-const id: any = route.params.id;
+const router = useRouter();
 const productStore = useProductStore();
+const basketStore = useBasketStore();
+
+const id: any = route.params.id;
+const quantity = ref(1);
 
 onMounted(async () => {
   await productStore.getOne(id);
@@ -42,6 +61,11 @@ onMounted(async () => {
 onUpdated(async () => {
   await productStore.getOne(id);
 });
+
+function buyProduct() {
+  basketStore.putProduct(productStore.product as IProduct, quantity.value);
+  router.push('/basket');
+}
 </script>
 
 <style scoped lang="scss">
@@ -82,6 +106,9 @@ onUpdated(async () => {
   }
   .action {
     display: flex;
+    &__button {
+      margin-left: 16px;
+    }
   }
   .categories {
     margin: 32px 0 0 0;

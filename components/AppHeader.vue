@@ -22,7 +22,11 @@
         <div class="basket">
           <NuxtLink to="/basket">
             <div class="button">
-              <i class="pi pi-shopping-cart" style="font-size: 1.5rem" />
+              <i
+                v-badge="basketStore.totalProducts"
+                class="pi pi-shopping-cart p-overlay-badge"
+                style="font-size: 1.5rem"
+              />
             </div>
           </NuxtLink>
         </div>
@@ -33,6 +37,7 @@
 
 <script setup lang="ts">
 const mainStore = useMainStore();
+const basketStore = useBasketStore();
 </script>
 
 <style lang="scss" scoped></style>

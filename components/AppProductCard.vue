@@ -12,7 +12,7 @@
         </span>
       </NuxtLink>
       <div class="product-card__price">{{ product.price }} грн.</div>
-      <div class="product-card__button">
+      <div class="product-card__button" @click="basketStore.putProduct(product)">
         <Button label="В корзину" />
       </div>
     </div>
@@ -21,6 +21,8 @@
 
 <script setup lang="ts">
 import { IProduct } from '@/types';
+
+const basketStore = useBasketStore();
 
 defineProps<{
   product: IProduct;

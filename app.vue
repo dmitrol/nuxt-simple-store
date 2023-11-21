@@ -10,6 +10,7 @@ import { usePrimeVue } from 'primevue/config';
 
 const PrimeVue = usePrimeVue();
 const mainStore = useMainStore();
+const basketStore = useBasketStore();
 
 const theme = computed(() => {
   return mainStore.theme;
@@ -20,6 +21,7 @@ onMounted(() => {
   if (theme.value === 'dark') {
     PrimeVue.changeTheme('lara-light-indigo', 'lara-dark-indigo', 'theme-link', () => {});
   }
+  basketStore.init();
 });
 
 watch(theme, () => {

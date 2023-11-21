@@ -4,10 +4,7 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'space-before-function-paren': [
-      'error',
-      { anonymous: 'always', named: 'never', asyncArrow: 'always' },
-    ],
+    'space-before-function-paren': ['error', { anonymous: 'always', named: 'never', asyncArrow: 'always' }],
     'comma-dangle': ['error', 'always-multiline'],
     semi: ['error', 'always'],
     'vue/singleline-html-element-content-newline': 0,
@@ -30,5 +27,6 @@ module.exports = {
         multiline: 'always',
       },
     ],
+    'arrow-parens': ['error', 'always'],
   },
 };

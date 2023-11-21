@@ -21,3 +21,8 @@ export interface IProductTemplate {
 export interface IProduct extends IProductTemplate {
   _id: string;
 }
+
+export interface IBasketItem {
+  product: IProduct;
+  quantity: number;
+}
