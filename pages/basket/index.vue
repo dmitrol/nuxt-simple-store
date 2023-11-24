@@ -49,7 +49,7 @@
         </div>
       </ClientOnly>
       <div class="basket-btn">
-        <Button label="Оформить" />
+        <Button label="Оформить" @click="checkout" />
       </div>
     </template>
     <template v-else>
@@ -60,6 +60,11 @@
 
 <script setup lang="ts">
 const basketStore = useBasketStore();
+const router = useRouter();
+
+function checkout() {
+  router.push('/basket/checkout');
+}
 </script>
 
 <style scoped lang="scss">

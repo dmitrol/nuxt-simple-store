@@ -5,6 +5,7 @@
         <div class="app-flex-start">
           <NuxtLink to="/admin/products">Продукты</NuxtLink>
           <NuxtLink to="/admin/categories">Категории</NuxtLink>
+          <NuxtLink to="/admin/orders">Заказы</NuxtLink>
         </div>
         <div>
           <NuxtLink to="/">На главную</NuxtLink>

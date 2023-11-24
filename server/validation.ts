@@ -10,3 +10,10 @@ export const ProductValidator = Joi.object({
   categories: Joi.array(),
   price: Joi.number().required(),
 });
+
+export const OrderValidator = Joi.object({
+  name: Joi.string().min(3).required(),
+  telephone: Joi.string().required(),
+  sum: Joi.number().required(),
+  items: Joi.array(),
+});

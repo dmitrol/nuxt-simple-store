@@ -33,6 +33,7 @@ export default defineNuxtConfig({
         'Dialog',
         'InputText',
         'InputNumber',
+        'InputMask',
         'Textarea',
         'MultiSelect',
         'Tag',

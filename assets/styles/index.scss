@@ -3,6 +3,10 @@
 @import 'header';
 @import 'admin';
 
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
 .container {
   max-width: 1300px;
   width: 100%;

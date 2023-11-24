@@ -54,5 +54,10 @@ export const useBasketStore = defineStore('basket-store', {
         this.saveInStorage();
       }
     },
+
+    reset() {
+      this.basket = [];
+      this.saveInStorage();
+    },
   },
 });

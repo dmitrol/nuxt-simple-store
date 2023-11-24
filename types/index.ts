@@ -26,3 +26,14 @@ export interface IBasketItem {
   product: IProduct;
   quantity: number;
 }
+
+export interface IOrderTemplate {
+  name: string;
+  telephone: string;
+  sum: number;
+  items: IBasketItem[];
+}
+
+export interface IOrder extends IOrderTemplate {
+  _id: string;
+}

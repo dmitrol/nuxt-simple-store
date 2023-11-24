@@ -64,7 +64,7 @@
             autofocus
             aria-describedby="text-error"
           />
-          <small v-if="formErrorObject.title" class="p-error">Must be at least 3 characters</small>
+          <small v-if="formErrorObject.title" class="p-error">Не менее 3 символов</small>
         </div>
         <div class="form-row">
           <label for="description">Описание</label>
@@ -78,7 +78,7 @@
             cols="20"
             aria-describedby="text-error"
           />
-          <small v-if="formErrorObject.description" class="p-error">Must be at least 3 characters</small>
+          <small v-if="formErrorObject.description" class="p-error">Не менее 3 символов</small>
         </div>
         <div class="form-row">
           <label for="description">Категории</label>
@@ -100,7 +100,7 @@
             :style="{ width: '100%' }"
             aria-describedby="text-error"
           />
-          <small v-if="formErrorObject.price" class="p-error">Must be more than 0</small>
+          <small v-if="formErrorObject.price" class="p-error">Должно быть больше нуля</small>
         </div>
         <template #footer>
           <Button v-if="state.productFormData._id" label="OK" autofocus @click="updateCategory" />
