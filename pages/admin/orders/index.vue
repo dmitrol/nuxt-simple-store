@@ -13,9 +13,16 @@
           :rows="5"
           :rows-per-page-options="[5, 10, 20, 50]"
         >
-          <Column field="name" header="Имя" style="min-width: 100px" />
+          <Column field="name" header="Имя" style="min-width: 150px" />
           <Column field="telephone" header="Телефон" style="min-width: 100px" />
           <Column field="sum" header="Cумма" style="min-width: 100px" />
+          <Column header="Создан" style="width: 220px">
+            <template #body="{ data }">
+              <div v-if="data.createdAt">
+                {{ dayjs(data.createdAt).format('MMM DD, YYYY HH:mm') }}
+              </div>
+            </template>
+          </Column>
           <Column header="Действия" style="width: 250px">
             <template #body="slotProps">
               <div class="action-buttons">
@@ -44,6 +51,7 @@
 </template>
 
 <script setup>
+import dayjs from 'dayjs';
 definePageMeta({
   layout: 'admin',
 });

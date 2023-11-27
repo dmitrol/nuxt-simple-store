@@ -5,6 +5,7 @@
         <div class="info__header">Заказ: {{ orederStore.order._id }}</div>
         <div>Имя: {{ orederStore.order.name }}</div>
         <div>Телефон: {{ orederStore.order.telephone }}</div>
+        <div>Добавлен: {{ dayjs(orederStore.order?.createdAt).format('MMM DD, YYYY HH:mm') }}</div>
       </div>
 
       <div class="card">
@@ -33,6 +34,7 @@
 </template>
 
 <script setup>
+import dayjs from 'dayjs';
 definePageMeta({
   layout: 'admin',
 });

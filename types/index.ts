@@ -31,6 +31,7 @@ export interface IOrderTemplate {
   name: string;
   telephone: string;
   sum: number;
+  createdAt?: string;
   items: IBasketItem[];
 }
 
