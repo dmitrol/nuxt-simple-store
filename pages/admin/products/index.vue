@@ -20,6 +20,21 @@
                 <span>{{ resolveCategoriesCell(slotProps.data.categories) }}</span>
               </template>
             </Column>
+            <Column field="_id" header="Изображение" style="min-width: 50px">
+              <template #body="slotProps">
+                <div class="modal-image" title="Просмотр">
+                  <Image
+                    v-if="slotProps.data.image !== null"
+                    :src="imageHandler.resolveImagePath(slotProps.data.image)"
+                    alt="Image"
+                    width="40"
+                    height="40"
+                    preview
+                  />
+                  <span v-else>Нет</span>
+                </div>
+              </template>
+            </Column>
             <Column field="price" header="Цена" style="width: 100px" />
             <Column field="_id" header="Действия" style="width: 200px">
               <template #body="slotProps">
@@ -52,7 +67,14 @@
     </ClientOnly>
 
     <ClientOnly>
-      <Dialog v-model:visible="productModal" class="p-fluid" :style="{ width: '480px' }" header="Товар" modal>
+      <Dialog
+        v-model:visible="productModal"
+        class="p-fluid"
+        :style="{ width: '480px' }"
+        header="Товар"
+        modal
+        @hide="removeImage"
+      >
         <div class="form-row">
           <label for="title">Название</label>
           <InputText
@@ -91,6 +113,39 @@
           />
         </div>
         <div class="form-row">
+          <label for="description"
+            >Изображение
+            <span v-if="state.productFormData.image === null">(не загружено)</span>
+          </label>
+          <div v-if="imageLoading">load image</div>
+          <div v-if="state.productFormData.image !== null" class="app-flex-left">
+            <div class="modal-image" title="Просмотр">
+              <Image
+                :src="imageHandler.resolveImagePath(state.productFormData.image)"
+                alt="Image"
+                width="48"
+                height="48"
+                preview
+              />
+            </div>
+            <div class="app-flex-center" title="Отманить" @click="removeImage">
+              <span class="pi pi-times"></span>
+            </div>
+          </div>
+          <FileUpload
+            v-else
+            mode="basic"
+            name="demo[]"
+            url="/api/upload"
+            :file-limit="1"
+            :max-file-size="5000000"
+            :auto="true"
+            @upload="uploadImage"
+            @before-send="imageLoading = true"
+          />
+        </div>
+
+        <div class="form-row">
           <label for="price">Цена</label>
           <InputText
             id="price"
@@ -123,15 +178,24 @@ definePageMeta({
 const productStore = useProductStore();
 const categoryStore = useCategoryStore();
 const toast = useToast();
+const imageHandler = useImagehandler();
 
 const productModal = ref(false);
+const imageLoading = ref(false);
+
 const state = reactive({
   productFormData: {
     description: false,
     categories: [],
     price: false,
+    image: null,
   },
 });
+
+onBeforeUnmount(() => {
+  removeImage();
+});
+
 const formErrorObject = reactive({
   title: '',
   description: '',
@@ -231,6 +295,19 @@ async function deleteCategory(id) {
     });
 }
 
+function uploadImage(data) {
+  const resp = JSON.parse(data.xhr.response);
+  state.productFormData.image = resp.file;
+  imageLoading.value = false;
+}
+
+async function removeImage() {
+  if (state.productFormData.image !== null) {
+    await productStore.removeImage(state.productFormData.image);
+    state.productFormData.image = null;
+  }
+}
+
 function validateForm() {
   resetErrorObject();
   if (state.productFormData.price < 1) {
@@ -258,7 +335,7 @@ function openEditModal(product) {
 }
 
 function closeModal() {
-  productModal.value = true;
+  productModal.value = false;
   resetForm();
 }
 
@@ -269,6 +346,7 @@ function resetForm() {
     description: '',
     categories: [],
     price: 0,
+    image: null,
   };
 }
 
@@ -279,4 +357,15 @@ function resetErrorObject() {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.modal-image {
+  max-width: 48px;
+  max-height: 48px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+}
+</style>

@@ -4,7 +4,11 @@
       <template v-if="productStore.product !== null">
         <div class="top-content">
           <div class="product-image">
-            <img alt="user header" src="/product.jpg" />
+            <img
+              v-if="productStore.product.image"
+              :src="imagehandler.resolveImagePath(productStore.product.image)"
+              alt="image"
+            />
           </div>
           <div class="product-data app-full-width">
             <div class="title">{{ productStore.product.title }}</div>
@@ -50,6 +54,7 @@ const route = useRoute();
 const router = useRouter();
 const productStore = useProductStore();
 const basketStore = useBasketStore();
+const imagehandler = useImagehandler();
 
 const id: any = route.params.id;
 const quantity = ref(1);

@@ -16,6 +16,7 @@ export interface IProductTemplate {
   description: string;
   price: number;
   categories: ICategory[];
+  image: string | null;
 }
 
 export interface IProduct extends IProductTemplate {

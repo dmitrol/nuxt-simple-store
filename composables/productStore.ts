@@ -55,5 +55,11 @@ export const useProductStore = defineStore('product-store', {
         await this.getAll();
       });
     },
+
+    async removeImage(fileName: String) {
+      await $fetch(`/api/upload/${fileName}`, {
+        method: 'DELETE',
+      });
+    },
   },
 });

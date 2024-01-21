@@ -9,6 +9,7 @@ export const ProductValidator = Joi.object({
   description: Joi.string().min(3),
   categories: Joi.array(),
   price: Joi.number().required(),
+  image: Joi.string().allow(null),
 });
 
 export const OrderValidator = Joi.object({

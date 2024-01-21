@@ -40,6 +40,8 @@ export default defineNuxtConfig({
         'Toast',
         'Card',
         'Badge',
+        'FileUpload',
+        'Image',
       ],
     },
   },
@@ -51,5 +53,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     MONGO_URI: process.env.MONGO_URI,
     MONGO_DB_NAME: process.env.MONGO_DB_NAME,
+    public: {
+      PRODUCT_IMAGE_DIR: process.env.PRODUCT_IMAGE_DIR,
+    },
   },
 });

@@ -18,6 +18,9 @@ const schema: mongoose.Schema = new mongoose.Schema(
       },
     ],
     price: Number,
+    image: {
+      type: String || null,
+    },
   },
   { timestamps: true },
 );

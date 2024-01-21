@@ -3,7 +3,7 @@
     <div class="product-card">
       <NuxtLink :to="'/products/' + product._id">
         <div class="product-card__image">
-          <img alt="user header" src="/product.jpg" />
+          <img v-if="product.image" :src="imagehandler.resolveImagePath(product.image)" />
         </div>
       </NuxtLink>
       <NuxtLink class="product-card__title" :to="'/products/' + product._id">
@@ -23,6 +23,7 @@
 import { IProduct } from '@/types';
 
 const basketStore = useBasketStore();
+const imagehandler = useImagehandler();
 
 defineProps<{
   product: IProduct;
